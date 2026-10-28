@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Atlas Admin — pannello amministrativo per utenti, catalogo, ordini, contenuti e assistenza.">
+  <title>Atlas Admin — Workspace</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <section id="login-screen" class="login-screen hidden" aria-label="Accesso amministratore">
+    <div class="login-brand"><div class="brand-mark">A<span>·</span></div><span>atlas<span class="brand-light">/admin</span></span></div>
+    <div class="login-card">
+      <div class="eyebrow">AREA RISERVATA</div>
+      <h1>Bentornato.</h1>
+      <p class="muted login-copy">Accedi al tuo workspace per gestire tutte le attività.</p>
+      <form id="login-form">
+        <label for="login-username">Nome utente</label>
+        <input id="login-username" name="username" autocomplete="username" required maxlength="100" placeholder="Il tuo nome utente">
+        <label for="login-password">Password</label>
+        <div class="password-wrap"><input id="login-password" name="password" type="password" autocomplete="current-password" required placeholder="La tua password"><button type="button" id="toggle-password" class="password-toggle" aria-label="Mostra password">Mostra</button></div>
+        <div id="login-error" class="form-error" role="alert"></div>
+        <button type="submit" class="button button-primary button-wide" id="login-submit">Accedi al pannello <span aria-hidden="true">↗</span></button>
+      </form>
+      <div class="login-note"><span class="lock-dot"></span> Accesso protetto · Sessione amministratore</div>
+    </div>
+    <div class="login-footer">ATLAS ADMIN <span>·</span> CONTROL CENTER</div>
+  </section>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><div class="brand-mark">A<span>·</span></div><div class="brand-name">atlas<span class="brand-light">/admin</span></div><button id="sidebar-close" class="icon-button sidebar-close" aria-label="Chiudi menu">×</button></div>
+      <div class="workspace-switcher"><div class="workspace-avatar">AS</div><div class="workspace-meta"><strong id="workspace-name">Atlas Studio</strong><span>Workspace principale</span></div><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Navigazione principale">
+        <button class="nav-item active" data-page="overview"><span class="nav-icon">◫</span><span>Panoramica</span></button>
+        <button class="nav-item" data-page="users"><span class="nav-icon">♙</span><span>Utenti</span><span class="nav-count" id="nav-users-count">—</span></button>
+        <button class="nav-item" data-page="products"><span class="nav-icon">▦</span><span>Prodotti</span></button>
+        <button class="nav-item" data-page="orders"><span class="nav-icon">▤</span><span>Ordini</span><span class="nav-count" id="nav-orders-count">—</span></button>
+        <button class="nav-item" data-page="posts"><span class="nav-icon">▧</span><span>Contenuti</span></button>
+        <button class="nav-item" data-page="tickets"><span class="nav-icon">◌</span><span>Assistenza</span><span class="nav-ping"></span></button>
+      </nav>
+      <div class="nav-label nav-label-spaced">ANALISI & SISTEMA</div>
+      <nav class="main-nav" aria-label="Analisi e sistema">
+        <button class="nav-item" data-page="analytics"><span class="nav-icon">⌁</span><span>Report & analisi</span></button>
+        <button class="nav-item" data-page="logs"><span class="nav-icon">☷</span><span>Registro attività</span></button>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span><span>Impostazioni</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✳</div><strong>Serve una mano?</strong><p>Consulta la guida per usare al meglio Atlas.</p><button id="help-button" class="text-button">Apri guida <span>↗</span></button></div>
+        <div class="sidebar-user"><div class="avatar avatar-violet" id="user-avatar">AD</div><div class="sidebar-user-meta"><strong id="current-user-name">Admin</strong><span>Super amministratore</span></div><button id="user-menu-button" class="icon-button user-menu-button" aria-label="Apri menu utente">···</button><div id="user-menu" class="user-menu hidden"><button id="logout-button">↪ &nbsp; Esci dal pannello</button></div></div>
+      </div>
+    </aside>
+    <div id="sidebar-scrim" class="sidebar-scrim"></div>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left"><button id="mobile-menu" class="icon-button mobile-menu" aria-label="Apri menu">☰</button><div class="breadcrumbs"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Panoramica</strong></div></div>
+        <div class="topbar-right"><div class="search-global"><span class="search-symbol">⌕</span><input id="global-search" placeholder="Cerca in tutto…" aria-label="Cerca in tutto il pannello"><kbd>Ctrl K</kbd></div><button id="topbar-help" class="icon-button topbar-help" aria-label="Aiuto">?</button><div class="topbar-divider"></div><button id="topbar-profile" class="avatar avatar-violet" aria-label="Menu profilo">AD</button></div>
+      </header>
+      <div class="content-wrap" id="content-wrap">
+        <section class="welcome-strip"><div><div class="eyebrow" id="welcome-date">MERCOLEDÌ, 28 OTTOBRE 2026</div><h1 id="welcome-title">La tua attività, a colpo d’occhio.</h1><p id="welcome-subtitle">Ecco cosa sta succedendo oggi nel tuo workspace.</p></div><div class="welcome-actions"><button class="button button-secondary" id="export-current"><span>↓</span> Esporta dati</button><button class="button button-primary" id="primary-action"><span>＋</span> Nuovo elemento</button></div></section>
+        <div id="page-content" aria-live="polite"><div class="loading-block"><span class="spinner"></span> Caricamento workspace…</div></div>
+        <footer class="page-footer"><span>© <span id="footer-year"></span> Atlas Admin</span><span><span class="status-dot"></span> Tutti i sistemi operativi</span><span>Versione 1.0.0</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="confirm-root"></div>
+</body>
+</html>

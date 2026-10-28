@@ -1,0 +1,21 @@
+{
+  "name": "atlas-admin-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pannello amministrativo full-stack Node.js con autenticazione, CRUD e dati persistenti.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-session": "^2.1.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0"
+  }
+}
